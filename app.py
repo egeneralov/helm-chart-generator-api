@@ -49,7 +49,7 @@ def generate():
     data = json.loads(raw)
   except json.decoder.JSONDecodeError as error:
     return str(error), 400, {'Content-Type': 'application/json'}
-  schema = {"title":"chart","type":"object","properties":{"host":{"type":"string"},"version":{"type":"string"},"image":{"type":"string"},"imageTag":{"type":"string"},"port":{"type":"integer"}}}
+  schema = {"title":"chart","type":"object","properties":{"host":{"type":"string"},"version":{"type":"string"},"image":{"type":"string"},"imageTag":{"type":"string"},"port":{"type":"integer"},"imagePullSecret":{"type":"integer"}}}
   try:
     jsonschema.validate(data, schema)
   except jsonschema.exceptions.ValidationError as error:
@@ -60,13 +60,15 @@ def generate():
     "envSecret": {},
     "service": { "port": data['port'] },
     "replicas": 1,
-    "imagePullSecret": "registry",
+#    "imagePullSecret": "registry",
     "env": {},
     "ingress": {
       "host": data['host']
     },
     "app": {"resources":{"limits":{"memory":"256Mi","cpu":"200m"},"datas":{"memory":"256Mi","cpu":"200m"}}}
   }
+  if imagePullSecret in data.keys():
+    values['imagePullSecret'] = data['imagePullSecret']
   values_yaml = yaml.dump(values)
   chart = {
     "sources": [data['image']],
@@ -109,6 +111,6 @@ def download(filename):
   return send_file(os.path.join(os.getcwd(), filename), as_attachment=True)
 
 if __name__ == "__main__":
-  app.run(host='0.0.0.0',port=8080,debug=False)
+  app.run(host='0.0.0.0',port=8080,debug=True)
 
 

@@ -30,7 +30,9 @@ class cd:
 app = Flask(__name__)
 
 
-
+@app.route("/", methods=['GET'])
+def alive():
+  return '', 200
 
 @app.route("/generate/", methods=['POST'])
 def generate():

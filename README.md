@@ -1,9 +1,10 @@
 # Helm Chart Generator
 
-Small microservice for generate HELM charts.
+Small microservice for generate HELM charts. See also [Command-line client](https://github.com/egeneralov/helm-chart-generator-cli).
 
 ## QuickStart
 
+    docker run -d --name hcg --rm -p 8080:8080 egeneralov/helm-chart-generator
     wget 127.0.0.1:8080/download/$(curl -d@payload.json 127.0.0.1:8080/generate/)
 
 ## Details

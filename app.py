@@ -69,7 +69,7 @@ def generate():
     },
     "app": {"resources":{"limits":{"memory":"256Mi","cpu":"200m"},"datas":{"memory":"256Mi","cpu":"200m"}}}
   }
-  if imagePullSecret in data.keys():
+  if 'imagePullSecret' in data.keys():
     values['imagePullSecret'] = data['imagePullSecret']
   values_yaml = yaml.dump(values)
   chart = {

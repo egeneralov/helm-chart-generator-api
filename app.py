@@ -51,7 +51,7 @@ def generate():
     data = json.loads(raw)
   except json.decoder.JSONDecodeError as error:
     return str(error), 400, {'Content-Type': 'application/json'}
-  schema = {"title":"chart","type":"object","properties":{"host":{"type":"string"},"version":{"type":"string"},"image":{"type":"string"},"imageTag":{"type":"string"},"port":{"type":"integer"},"imagePullSecret":{"type":"integer"}}}
+  schema = {"title":"chart","type":"object","properties":{"host":{"type":"string"},"version":{"type":"string"},"image":{"type":"string"},"imageTag":{"type":"string"},"port":{"type":"integer"},"imagePullSecret":{"type":"string"}}}
   try:
     jsonschema.validate(data, schema)
   except jsonschema.exceptions.ValidationError as error:
